@@ -5,12 +5,17 @@
 #   name = shell.ask("What's your name?")
 #   shell.say name
 #
-email     = shell.ask "Which email do you want use for loggin into admin?"
-password  = shell.ask "Tell me the password to use:"
+email     = "claysrg@gmail.com"
+password  = "admin"
 
 shell.say ""
 
-account = Account.create(:email => email, :name => "Foo", :surname => "Bar", :password => password, :password_confirmation => password, :role => "admin")
+account = Account.create(:email => email,
+                         :name => "Clay",
+                         :surname => "Srg",
+                         :password => password,
+                         :password_confirmation => password,
+                         :role => "admin")
 
 if account.valid?
   shell.say "================================================================="
@@ -26,3 +31,4 @@ else
 end
 
 shell.say ""
+

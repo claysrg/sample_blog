@@ -13,6 +13,8 @@
 #     :socket    => '/tmp/mysql.sock'
 #   }
 #
+postgres = URI.parse(ENV['DATABASE_URL'] || '')
+
 ActiveRecord::Base.configurations[:development] = {
   :adapter => 'sqlite3',
   :database => Padrino.root('db', "sample_blog_development.db")
@@ -20,9 +22,12 @@ ActiveRecord::Base.configurations[:development] = {
 }
 
 ActiveRecord::Base.configurations[:production] = {
-  :adapter => 'sqlite3',
-  :database => Padrino.root('db', "sample_blog_production.db")
-
+  :adapter  => 'postgresql',
+  :encoding => 'utf8',
+  :database => postgres.user,
+  :username => postgres.user,
+  :password => postgres.password,
+  :host     => postgres.host
 }
 
 ActiveRecord::Base.configurations[:test] = {
@@ -49,3 +54,4 @@ ActiveSupport.escape_html_entities_in_json = false
 
 # Now we can estabilish connection with our db
 ActiveRecord::Base.establish_connection(ActiveRecord::Base.configurations[Padrino.env])
+
